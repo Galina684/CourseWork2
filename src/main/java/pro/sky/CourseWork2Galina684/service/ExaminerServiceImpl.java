@@ -1,6 +1,6 @@
 package pro.sky.CourseWork2Galina684.service;
 
-import exceptions.AmountExceedsListSize;
+import pro.sky.CourseWork2Galina684.exceptions.AmountExceedsListSize;
 import org.springframework.stereotype.Service;
 import pro.sky.CourseWork2Galina684.interfaces.ExaminerService;
 import pro.sky.CourseWork2Galina684.Question;
@@ -14,7 +14,7 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     QuestionService questionService;
 
-    public ExaminerServiceImpl(QuestionService questionService) {
+    public ExaminerServiceImpl() {
         this.questionService = questionService;
     }
 

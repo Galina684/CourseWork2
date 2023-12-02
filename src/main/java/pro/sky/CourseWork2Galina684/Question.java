@@ -2,7 +2,7 @@ package pro.sky.CourseWork2Galina684;
 
 import java.util.Objects;
 
-public  class Question {
+public class Question {
 
     private String question;
     private String answer;

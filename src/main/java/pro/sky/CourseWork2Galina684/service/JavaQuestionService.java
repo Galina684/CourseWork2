@@ -8,10 +8,10 @@ import java.util.*;
 
 @Service
 public class JavaQuestionService implements QuestionService {
-   private Set<Question> questions;
-   private Random random;
+    private Set<Question> questions;
+    private Random random;
 
-    public JavaQuestionService(Set<Question> questions) {
+    public JavaQuestionService() {
 
         this.questions = new HashSet<>();
         this.random = new Random();
@@ -19,9 +19,9 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question add(String question, String answer) {
-
-        questions.add(new Question(question, answer));
-        return null;
+        Question question1 = new Question(question, answer);
+        questions.add(question1);
+        return question1;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question remove(Question question) {
-        if (questions.contains(question)){
+        if (questions.contains(question)) {
             questions.remove(question);
         } else throw new IllegalArgumentException("Вопрос не найден");
         return question;
@@ -46,10 +46,10 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
-        if(!questions.isEmpty()){
+        if (!questions.isEmpty()) {
             int randomQuestion = random.nextInt(questions.size());
             List<Question> questionList = new ArrayList<>(questions);
             return questionList.get(randomQuestion);
-        } else  throw new IllegalArgumentException();
+        } else throw new IllegalArgumentException();
     }
 }
