@@ -1,6 +1,7 @@
 package pro.sky.CourseWork2Galina684.service;
 
 import net.bytebuddy.asm.Advice;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,12 +19,13 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 class ExaminerServiceImplTest {
     @Mock
     private QuestionService questionService;
     @InjectMocks
-    private ExaminerService out = new ExaminerServiceImpl();
+    private ExaminerServiceImpl out;
+
 
     private final Question q1 = new Question("qu1", "answ1");
     private final Question q2 = new Question("qu2", "answ2");
@@ -32,12 +34,25 @@ class ExaminerServiceImplTest {
     private final Question q5 = new Question("qu5", "answ5");
 
 
+    @BeforeEach
+    public void setUp() {
+        Collection<Question> questions = List.of(q1, q2, q3, q4, q5);
+        when(questionService.getAll()).thenReturn(questions);
+    }
+
     @Test
-    void getQuestions() {
-        Set<Question> questions = new HashSet<>(List.of(q1, q2, q3, q4, q5));
-        Mockito.when(questionService.getAll())
-                .thenReturn(questions);
+    void getQuestionsTest() {
+        Collection<Question> outQuestions = out.getQuestions(5);
+        outQuestions.add(q1);
+        outQuestions.add(q2);
+        assertTrue(outQuestions.contains(q1));
+        assertFalse(outQuestions.contains(q3));
+        assertNotNull(outQuestions);
+        assertNotEquals(outQuestions, questionService.getAll());
 
         assertThrows(AmountExceedsListSize.class, () -> out.getQuestions(6));
+
     }
+
+
 }
